@@ -18,7 +18,7 @@ data class Carro(
 
         var cor: String? = null,
 
-        @ManyToOne
+        @ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
         @JoinColumn(name = "modelo_id")
         var modelo: Modelo? = null
 )

@@ -12,7 +12,7 @@ data class Modelo(
 
         var valorFipe: Double? = null,
 
-        @ManyToOne
+        @ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
         @JoinColumn(name = "marca_id")
         var marca: Marca? = null
 )
