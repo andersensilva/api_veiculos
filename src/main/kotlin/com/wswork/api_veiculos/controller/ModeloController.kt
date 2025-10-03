@@ -2,7 +2,6 @@ package com.wswork.api_veiculos.controller
 
 import com.wswork.api_veiculos.entity.Modelo
 import com.wswork.api_veiculos.service.ModeloService
-
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,6 +24,12 @@ class ModeloController(
                     .map { ResponseEntity.ok(it) }
                     .orElse(ResponseEntity.notFound().build())
 
+    @GetMapping("/{id}/check-carros")
+    fun checkCarrosVinculados(@PathVariable id: Long): ResponseEntity<Long> {
+        val count = modeloService.countCarrosVinculados(id)
+        return ResponseEntity.ok(count)
+    }
+
     @PostMapping
     fun create(@RequestBody modelo: Modelo): ResponseEntity<Modelo> {
         val salva = modeloService.save(modelo)
@@ -41,8 +46,11 @@ class ModeloController(
                     .orElse(ResponseEntity.notFound().build())
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
-        modeloService.delete(id)
+    fun delete(
+            @PathVariable id: Long,
+            @RequestParam(defaultValue = "false") cascade: Boolean
+    ): ResponseEntity<Void> {
+        modeloService.delete(id, cascade)
         return ResponseEntity.noContent().build()
     }
 }

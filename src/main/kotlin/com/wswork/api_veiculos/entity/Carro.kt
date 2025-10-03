@@ -1,5 +1,6 @@
 package com.wswork.api_veiculos.entity
 
+import com.wswork.api_veiculos.entity.Modelo
 import jakarta.persistence.*
 
 @Entity
@@ -8,14 +9,10 @@ data class Carro(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
 
-        var timestampCadastro: Long? = null,
-
+        var timestamp_cadastro: Long? = null,
         var ano: Int? = null,
-
         var combustivel: String? = null,
-
-        var numPortas: Int? = null,
-
+        var num_portas: Int? = null,
         var cor: String? = null,
 
         @ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
